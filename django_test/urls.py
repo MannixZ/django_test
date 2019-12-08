@@ -37,4 +37,16 @@ urlpatterns = [
     url(r'^update$', testdb.update_psw),
     url(r'^delete$', testdb.delete_user),
     url(r'^mail$', testdb.select_mail),
+    url(r'^slec_all$', testdb.slec_all),
+    url(r'^slec_filter$', testdb.sele_filter),
+    url(r'^sele_values$', testdb.sele_values),
+    url(r'^sele_get$', testdb.sele_get),
+    url(r'^sele_first_last$', testdb.sele_first_last),
+    url(r'^get_json$', testdb.get_json),
+    url(r'^to_dict$', testdb.to_dict),
+    url(r'^json_data$', testdb.json_data),
+    url(r'^qq/$', views.test_qq),
+    url(r'^result$', views.result_qq),
+    url(r'^email$', views.user),
+
 ]

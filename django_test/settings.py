@@ -55,7 +55,7 @@ ROOT_URLCONF = 'django_test.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR + 'hello/templates', ],  # Ìí¼Ó±¾µØÄ£°åÄ¿Â¼µÄÂ·¾¶
+        'DIRS': [BASE_DIR + 'hello/templates', ],  # ï¿½ï¿½Ó±ï¿½ï¿½ï¿½Ä£ï¿½ï¿½Ä¿Â¼ï¿½ï¿½Â·ï¿½ï¿½
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -83,12 +83,12 @@ WSGI_APPLICATION = 'django_test.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',  # »òÕßÊ¹ÓÃ mysql.connector.django
+        'ENGINE': 'django.db.backends.mysql',  # ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½ mysql.connector.django
         'NAME': 'test',
         'USER': 'root',
         'PASSWORD': 'root',
         'HOST': 'localhost',
-        'PORT': '3306',
+        'PORT': '3307',
     }
 }
 
@@ -114,16 +114,19 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+# LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'zh-hans'
 
-TIME_ZONE = 'UTC'
+# TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Shanghai'
+
 
 USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
-
+# USE_TZ = True #
+USE_TZ = False     # è®¾ç½®ä¸ºFalseï¼Œè¦ä¸ç„¶æ•°æ®åº“æ—¶é—´å’Œå½“å‰æ—¶é—´ä¸ä¸€è‡´
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/

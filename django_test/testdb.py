@@ -7,10 +7,13 @@
 @desc:
 '''
 
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 
 from hello.models import Test
 from hello.models import User
+from django.core import serializers
+import json
+from django.forms.models import model_to_dict
 
 # 数据库操作
 def testdb(request):
@@ -66,3 +69,82 @@ def select_mail(request):
     # m = test4[0].mail
 
     return HttpResponse('<p>查询结果: %s</p>' % m)
+
+# 查找User表数据
+def slec_all(request):
+    '''取出user表里面user_name、psw、mail全部数据'''
+    users = ''
+    psws = ''
+    mails = ''
+    ret = User.objects.all()
+
+    # 返回queryset对象, 可迭代
+    for i in ret:
+        users += " " + i.user_name
+        psws += " " + i.psw
+        mails += " " + i.mail
+
+    return HttpResponse('''<p>查询user结果：%s</p>
+                            <p>查询psw结果：%s</p>
+                            <p>查询psw结果：%s</p>''' % (users, psws, mails))
+
+def sele_filter(request):
+    '''获取user_name="haha" and psw="123456"对应的mail值
+    查找为空时，返回null'''
+    r = " "
+    ret = User.objects.filter(user_name='haha',
+                              psw='123456')
+    try:
+        r = ret[0].mail
+    except:
+        r = 'null'
+    return HttpResponse('<p>查询结果: %s</p>' % (r))
+
+def sele_values(request):
+    '''可迭代的字典序列'''
+    r = " "
+    ret = User.objects.all().values("user_name", "mail")
+    for i in ret:
+        r += str(i)
+    return HttpResponse('<p>查询结果: %s</p>' % r)
+
+def sele_get(request):
+    '''get返回唯一的查询结果'''
+    r = " "
+    ret = User.objects.get(user_name='haha')
+    r = ret.user_name + ret.mail
+    return HttpResponse('<p>查询结果: %s</p>' % r)
+
+def sele_first_last(request):
+    '''查询第一个和最后一个记录'''
+    fir = User.objects.all().order_by('mail').first()
+    f = fir.mail
+
+    las = User.objects.all().order_by('mail').last()
+    l = las.mail
+    return HttpResponse('<p>查询第一个结果：%s</p> <p>查询最后结果：%s</p>' % (f, l))
+
+def get_json(request):
+    '''返回json数据'''
+    data = {}
+    a = User.objects.all()
+    data['result'] = json.loads(serializers.serialize('json', a))
+    return JsonResponse(data)
+
+def to_dict(request):
+    '''把返回的结果转成dict序列'''
+    ret = User.objects.all()
+    json_list = []
+    for i in ret:
+        json_dict = model_to_dict(i)
+        json_list.append(json_dict)
+    return JsonResponse(json_list, safe=False)
+
+def json_data(request):
+    '''values()获取的可迭代dict对象转List'''
+    data = {}
+    ret = User.objects.all().values()
+    data['data'] = list(ret)
+    return JsonResponse(data,
+                        safe=False,
+                        json_dumps_params={'ensure_ascii':False})
