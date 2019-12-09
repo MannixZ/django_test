@@ -80,3 +80,40 @@ def user(request):
         return render(request, 'name.html', {'email': res})
     else:
         return render(request, 'name.html', {'email': res})
+
+def register(request):
+    '''注册页面'''
+    res = ""
+    if request.method == "POST":
+        username = request.POST.get('username')
+        psw = request.POST.get('password')
+        mail = request.POST.get('mail')
+
+        # 先查询数据库是否有此用户名
+        user_lst = User.objects.filter(user_name=username)
+        if user_lst:
+            # 如果已经注册过，就给个提示
+            res = "%s用户已被注册" % username
+            return render(request, 'register.html', {'name': res})
+        else:
+            # 如果没被注册, 插入数据库
+
+            # 第一种写法 -- 推荐
+            user = User()
+            user.user_name = username
+            user.psw = psw
+            user.mail = mail
+            user.save()
+
+            # 第二种写法
+            # user = User(user_name=username,
+            #             psw=psw,
+            #             mail=mail,
+            #             )
+            # user.save()
+            return render(request, 'login.html', {'rename': res})
+    return render(request, 'register.html')
+
+def login(request):
+    '''登录页面'''
+    return render(request, 'login.html')

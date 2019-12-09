@@ -33,7 +33,7 @@ urlpatterns = [
     url(r'^page1/$', views.page1),
     url(r'^chlid$', views.child),
     url(r'^testdb$', testdb.testdb),
-    url(r'^register$', testdb.add_user),
+    # url(r'^register$', testdb.add_user),
     url(r'^update$', testdb.update_psw),
     url(r'^delete$', testdb.delete_user),
     url(r'^mail$', testdb.select_mail),
@@ -48,5 +48,6 @@ urlpatterns = [
     url(r'^qq/$', views.test_qq),
     url(r'^result$', views.result_qq),
     url(r'^email$', views.user),
-
+    url(r'^register$', views.register),
+    url(r'^login$', views.login),
 ]
