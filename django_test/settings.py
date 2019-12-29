@@ -11,9 +11,12 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
+import sys
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, os.path.join(BASE_DIR, 'apps'))
+sys.path.insert(0, os.path.join(BASE_DIR, 'extra_apps'))
 
 
 # Quick-start development settings - unsuitable for production
@@ -37,7 +40,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'hello'
+    'hello',
+    'xadmin',
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [
@@ -132,3 +137,12 @@ USE_TZ = False     # 设置为False，要不然数据库时间和当前时间不
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+EMAIL_USE_SSL = True  # SSL加密方式
+EMAIL_HOST = 'smtp.qq.com'  # 发送邮件的邮箱的 SMTP服务器, 这里用了qq邮箱
+EMAIL_PORT = 465  # SMTP服务器端口
+EMAIL_HOST_USER = '317588213@qq.com'  # 发件人
+EMAIL_HOST_PASSWORD = 'tbtivysklrhwbhdg'  # 密码(这里使用得是授权码)
+EMAIL_FROM = 'test<317588213@qq.com>'

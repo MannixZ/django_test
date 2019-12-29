@@ -17,11 +17,12 @@ from django.contrib import admin
 from django.urls import path
 from django.conf.urls import url
 from . import view, testdb
-
 from hello import views
+import xadmin
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    # path('admin/', admin.site.urls),
+    path('xadmin/', xadmin.site.urls),
     url(r'^$', view.index),
     url(r'^hello$', view.hello),
     url('^demo/$', views.demo, name="demp_page"),
@@ -36,7 +37,7 @@ urlpatterns = [
     # url(r'^register$', testdb.add_user),
     url(r'^update$', testdb.update_psw),
     url(r'^delete$', testdb.delete_user),
-    url(r'^mail$', testdb.select_mail),
+    # url(r'^mail$', testdb.select_mail),
     url(r'^slec_all$', testdb.slec_all),
     url(r'^slec_filter$', testdb.sele_filter),
     url(r'^sele_values$', testdb.sele_values),
@@ -50,4 +51,10 @@ urlpatterns = [
     url(r'^email$', views.user),
     url(r'^register$', views.register),
     url(r'^login$', views.login),
+    url(r'^reset/$', views.reset_psw),
+    url(r'^mail$', views.mail),
+    url(r'^mail_html$', views.mail_html),
+    url(r'^file_mail$', views.file_mail),
+    url(r'^file_html_mail$', views.file_html_mail),
+
 ]
