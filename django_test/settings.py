@@ -146,3 +146,6 @@ EMAIL_PORT = 465  # SMTP服务器端口
 EMAIL_HOST_USER = '317588213@qq.com'  # 发件人
 EMAIL_HOST_PASSWORD = 'tbtivysklrhwbhdg'  # 密码(这里使用得是授权码)
 EMAIL_FROM = 'test<317588213@qq.com>'
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')

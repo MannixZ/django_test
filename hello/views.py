@@ -2,11 +2,13 @@
 # encoding: utf-8
 
 from django.shortcuts import render
-from django.http import HttpResponse, Http404
+from django.http import HttpResponse, Http404, JsonResponse, HttpResponseRedirect
 from hello.models import User
 from django.contrib.auth.hashers import make_password, check_password
 from django.core.mail import send_mail, send_mass_mail, EmailMessage, EmailMultiAlternatives
 import os
+from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
@@ -264,5 +266,31 @@ def file_html_mail(request):
     email.attach_alternative(content=h, mimetype='text/html')
     email.send()
     return HttpResponse('邮件发送成功,收不到就去垃圾箱找找吧')
+
+def loginView(request):
+    '''登录'''
+    if request.method == "POST":
+        username = request.POST.get('username', '')
+        psw = request.POST.get('password', '')
+        user = authenticate(username=username, password=psw)
+        if user is not None:
+            if user.is_active:
+                login(request, user=user)
+                request.session['user'] = username
+                return HttpResponseRedirect('/success')
+        else:
+            return render(request, 'login2.html', {'msg': '账号或密码错误!'})
+    else:
+        return render(request, 'login2.html', {'msg': ''})
+
+@login_required
+def successView(request):
+    '''登录成功页'''
+    return render(request, 'success.html', {'msg': ''})
+
+def logoutView(request):
+    '''退出登录'''
+    logout(request)
+    return render(request, 'login2.html', {'msg': ''})
 
 

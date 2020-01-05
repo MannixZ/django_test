@@ -16,9 +16,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.conf.urls import url
-from . import view, testdb
+from . import view, testdb, settings
 from hello import views
 import xadmin
+from django.views.static import serve
 
 urlpatterns = [
     # path('admin/', admin.site.urls),
@@ -56,5 +57,8 @@ urlpatterns = [
     url(r'^mail_html$', views.mail_html),
     url(r'^file_mail$', views.file_mail),
     url(r'^file_html_mail$', views.file_html_mail),
-
+    url(r'^login2/', views.loginView),
+    url(r'^logout/', views.logoutView),
+    url(r'^success/', views.successView),
+    url(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT})
 ]
