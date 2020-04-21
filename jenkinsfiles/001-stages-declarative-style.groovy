@@ -25,6 +25,15 @@ pipeline {
         }
       }
     }
+    
+    stage('Stage 4') {
+      when {
+        branch 'master'
+         steps {
+          echo 'i am master'
+        }
+      }
+    }
 
   }
 }
