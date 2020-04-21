@@ -21,7 +21,7 @@ pipeline {
     stage('Stage 3') {
         steps {
           script {
-            echo 'Stage 2'
+            echo 'Stage 3'
         }
       }
     }
