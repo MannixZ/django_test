@@ -19,10 +19,9 @@ pipeline {
     }
     
     stage('Stage 3') {
-      when {
-       branch 'master'
         steps {
-         echo 'i am master'
+          script {
+            echo 'Stage 3'
         }
       }
     }
