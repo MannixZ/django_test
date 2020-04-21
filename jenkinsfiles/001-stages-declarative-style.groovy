@@ -19,12 +19,10 @@ pipeline {
     }
     
     stage('Stage 3') {
-      when {
         steps {
           script {
             echo 'Stage 2'
         }
-      }
       }
     }
 
